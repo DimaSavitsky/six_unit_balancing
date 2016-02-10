@@ -1,0 +1,507 @@
+@import 'variables';
+
+// Gradients
+
+// Horizontal gradient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+@mixin gradient-horizontal($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(left, $start-color $start-percent, $end-color $end-percent); // Opera 12
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down
+}
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+}
+
+@mixin gradient-directional($start-color: #555, $end-color: #333, $deg: 45deg) {
+  background-repeat: repeat-x;
+  background-image: -webkit-linear-gradient($deg, $start-color, $end-color); // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient($deg, $start-color, $end-color); // Opera 12
+  background-image: linear-gradient($deg, $start-color, $end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+}
+@mixin gradient-horizontal-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+  background-image: -o-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-vertical-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+  background-image: -webkit-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-image: -o-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down, gets no color-stop at all for proper fallback
+}
+@mixin gradient-radial($inner-color: #555, $outer-color: #333) {
+  background-image: -webkit-radial-gradient(circle, $inner-color, $outer-color);
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
+}
+@mixin gradient-striped($color: rgba(255,255,255,.15), $angle: 45deg) {
+  background-image: -webkit-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+
+// Slate 3.3.5
+// Bootswatch
+// -----------------------------------------------------
+
+@mixin btn-shadow($color){
+  @include gradient-vertical-three-colors(lighten($color, 6%), $color, 60%, darken($color, 4%));
+  filter: none;
+}
+
+@mixin btn-shadow-inverse($color){
+  @include gradient-vertical-three-colors(darken($color, 24%), darken($color, 18%), 40%, darken($color, 16%));
+  filter: none;
+}
+
+// Navbar =====================================================================
+
+.navbar {
+
+  @include btn-shadow($navbar-default-bg);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+  .navbar-nav > li > a {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:hover {
+      @include btn-shadow-inverse($navbar-default-bg);
+      border-left-color: transparent;
+    }
+  }
+
+  &-inverse {
+    @include btn-shadow($navbar-inverse-bg);
+
+    .badge {
+      background-color: $navbar-inverse-link-active-bg;
+    }
+
+    .navbar-nav > li > a {
+
+      &:hover {
+        @include btn-shadow-inverse($navbar-inverse-bg);
+      }
+    }
+  }
+
+  .nav .open > a {
+    border-color: transparent;
+  }
+
+  &-nav > li.active > a {
+    border-left-color: transparent;
+  }
+
+  &-form {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+// Buttons ====================================================================
+
+.btn,
+.btn:hover {
+  border-color: rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.btn-default {
+  @include btn-shadow($btn-default-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-default-bg);
+  }
+}
+
+.btn-primary {
+  @include btn-shadow($btn-primary-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-primary-bg);
+  }
+}
+
+.btn-success {
+  @include btn-shadow($btn-success-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-success-bg);
+  }
+}
+
+.btn-info {
+  @include btn-shadow($btn-info-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-info-bg);
+  }
+}
+
+.btn-warning {
+  @include btn-shadow($btn-warning-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-warning-bg);
+  }
+}
+
+.btn-danger {
+  @include btn-shadow($btn-danger-bg);
+
+  &:hover {
+    @include btn-shadow-inverse($btn-danger-bg);
+  }
+}
+
+.btn-link,
+.btn-link:hover {
+  border-color: transparent;
+}
+
+// Typography =================================================================
+
+h1, h2, h3, h4, h5, h6 {
+  text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.text-primary,
+.text-primary:hover {
+  color: $brand-primary;
+}
+
+.text-success,
+.text-success:hover {
+  color: $brand-success;
+}
+
+.text-danger,
+.text-danger:hover {
+  color: $brand-danger;
+}
+
+.text-warning,
+.text-warning:hover {
+  color: $brand-warning;
+}
+
+.text-info,
+.text-info:hover {
+  color: $brand-info;
+}
+
+// Tables =====================================================================
+
+.table {
+
+  .success,
+  .warning,
+  .danger,
+  .info {
+    color: #fff;
+  }
+
+  &-bordered tbody {
+
+    tr.success,
+    tr.warning,
+    tr.danger {
+
+      td,
+      &:hover td {
+        border-color: $table-border-color;
+      }
+    }
+  }
+}
+
+.table-responsive > .table {
+  background-color: $table-bg;
+}
+
+// Forms ======================================================================
+
+input,
+textarea {
+  color: $input-color;
+}
+
+.has-warning {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-warning;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-warning;
+  }
+
+  .input-group-addon {
+    background-color: $body-bg;
+    border: none;
+  }
+}
+
+.has-error {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-danger;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-danger;
+  }
+
+  .input-group-addon {
+    background-color: $body-bg;
+    border: none;
+  }
+}
+
+.has-success {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: $brand-success;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border-color: $brand-success;
+  }
+
+  .input-group-addon {
+    background-color: $body-bg;
+    border: none;
+  }
+}
+
+legend {
+  color: #fff;
+}
+
+.input-group-addon {
+  border-color: rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  @include btn-shadow($btn-default-bg);
+  color: $btn-default-color;
+}
+
+// Navs =======================================================================
+
+.nav {
+
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    border-color: rgba(0, 0, 0, 0.6);
+  }
+
+}
+
+.nav-pills {
+
+  & > li > a {
+    @include btn-shadow($btn-default-bg);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      @include btn-shadow-inverse($btn-default-bg);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  & > li.active > a,
+  & > li.active > a:hover {
+    background-color: none;
+    @include btn-shadow-inverse($btn-default-bg);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+  }
+
+  & > li.disabled > a,
+  & > li.disabled > a:hover {
+    @include btn-shadow($btn-default-bg);
+  }
+}
+
+.pagination {
+
+  & > li > a,
+  & > li > span {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    @include btn-shadow($btn-default-bg);
+
+    &:hover {
+      @include btn-shadow-inverse($btn-default-bg);
+    }
+  }
+
+  & > li.active > a,
+  & > li.active > span {
+    @include btn-shadow-inverse($btn-default-bg);
+  }
+
+  & > li.disabled > a,
+  & > li.disabled > a:hover,
+  & > li.disabled > span,
+  & > li.disabled > span:hover {
+    background-color: transparent;
+    @include btn-shadow($btn-default-bg);
+  }
+}
+
+.pager {
+
+  & > li > a {
+    @include btn-shadow($btn-default-bg);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      @include btn-shadow-inverse($btn-default-bg);
+    }
+  }
+
+  & > li.disabled > a,
+  & > li.disabled > a:hover {
+    background-color: transparent;
+    @include btn-shadow($btn-default-bg);
+  }
+}
+
+.breadcrumb {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  @include btn-shadow($btn-default-bg);
+}
+
+// Indicators =================================================================
+
+.alert {
+
+  .alert-link,
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .close {
+    color: $close-color;
+    text-decoration: none;
+  }
+}
+
+// Progress bars ==============================================================
+
+// Containers =================================================================
+
+a.thumbnail:hover,
+a.thumbnail:focus,
+a.thumbnail.active {
+  border-color: $thumbnail-border;
+}
+
+a.list-group-item {
+
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    border-color: $list-group-border;
+  }
+
+  &-success {
+    &.active {
+      background-color: $state-success-bg;
+    }
+
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-success-bg, 5%);
+    }
+  }
+
+  &-warning {
+    &.active {
+      background-color: $state-warning-bg;
+    }
+
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-warning-bg, 5%);
+    }
+  }
+
+  &-danger {
+    &.active {
+      background-color: $state-danger-bg;
+    }
+
+    &.active:hover,
+    &.active:focus {
+      background-color: darken($state-danger-bg, 5%);
+    }
+  }
+}
+
+.jumbotron {
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.panel-primary,
+.panel-success,
+.panel-danger,
+.panel-warning,
+.panel-info {
+
+  .panel-heading {
+    border-color: #000;
+  }
+}

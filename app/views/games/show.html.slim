@@ -1,0 +1,23 @@
+p#notice = notice
+
+div#characters
+  h1 Listing characters
+
+  table.table
+    thead
+      tr
+        th Name
+        th
+
+    tbody
+      - @game.characters.each do |character|
+        tr
+          td = link_to  character.name, game_character_path( @game, character)
+          td = link_to 'Edit', edit_game_character_path( @game, character)
+
+  br
+
+  = link_to 'New Character', new_game_character_path(game_id: @game.id)
+
+
+= link_to 'Back', games_path

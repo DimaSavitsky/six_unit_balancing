@@ -1,0 +1,22 @@
+h1 Listing games
+
+table.table
+  thead
+    tr
+      th
+      th = 'Created At'
+      th = 'Updated At'
+      th
+
+  tbody
+    - @games.each do |game|
+      tr
+        td = link_to game.name, game
+        td = I18n.l game.created_at, format: :long
+        td = I18n.l game.updated_at, format: :long
+
+        td = button_to 'Delete', game, method: :delete, class: :destroy
+
+br
+
+= link_to 'New Game', new_game_path
