@@ -1,6 +1,6 @@
 p#notice = notice
 
-div#characters
+.row.well#characters
   h1 Listing characters
 
   table.table
@@ -14,10 +14,22 @@ div#characters
         tr
           td = link_to  character.name, game_character_path( @game, character)
           td = link_to 'Edit', edit_game_character_path( @game, character)
-
   br
-
   = link_to 'New Character', new_game_character_path(game_id: @game.id)
+
+.row.well#battles
+  h1 Listing battles
+
+  table.table
+    thead
+      tr
+
+    tbody
+      - @game.battles.each do |battle|
+        tr
+          td = link_to  l(battle.created_at,format: :short), game_battle_path( @game, battle)
+  br
+  = link_to 'New Battle', new_game_battle_path(game_id: @game.id)
 
 
 = link_to 'Back', games_path

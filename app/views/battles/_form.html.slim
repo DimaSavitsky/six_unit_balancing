@@ -1,0 +1,17 @@
+= form_for [@game, @battle] do |f|
+  - if @battle.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@battle.errors.count, "error")} prohibited this battle from being saved:"
+      ul
+        - @battle.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    span.ul
+
+      - @game.characters.each do |character|
+        label.li
+          = check_box_tag :character_ids, character.id, @battle.characters.include?(character), name: 'battle[character_ids][]'
+          = character.name
+        br
+  .actions = f.submit

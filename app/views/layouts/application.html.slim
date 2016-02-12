@@ -26,11 +26,14 @@ html lang="en"
           ul.nav.navbar-nav
             li= link_to 'Link', '#'
 
-    .container
+    .container-fluid
       .row
-        .col-lg-9.well
-          = render partial: 'layouts/game', locals: {game: @game } if @game.try(:persisted?)
-          = yield
+        .col-lg-1
+        .col-lg-8
+          .row
+            = render partial: 'layouts/game', locals: {game: @game } if @game.try(:persisted?)
+          .row
+            = yield
 
 
         /.col-lg-3
