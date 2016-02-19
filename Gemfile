@@ -18,6 +18,8 @@ gem 'pg'
 
 gem 'cancancan'
 
+gem 'd3-rails'
+
 
 group :development, :test do
   gem 'byebug'

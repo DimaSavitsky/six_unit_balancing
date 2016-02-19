@@ -32,4 +32,6 @@ p#notice = notice
   = link_to 'New Battle', new_game_battle_path(game_id: @game.id)
 
 
+= link_to 'World', world_game_path(@game)
+br
 = link_to 'Back', games_path

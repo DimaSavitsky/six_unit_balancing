@@ -1,0 +1,31 @@
+#map {
+  .delaunay {
+    stroke-width: .5px;
+    stroke: #000;
+    fill: none;
+  }
+
+/*  .point {
+    stroke: #000;
+    stroke-width: .5px;
+    fill: red;
+  }*/
+
+/*  .circle {
+    stroke: blue;
+    stroke-width: .5px;
+    fill: none;
+  }*/
+
+  .voronoi {
+    stroke-width: .5px;
+    stroke: #000;
+  }
+
+/*  .graticule {
+    stroke: #000;
+    stroke-width: .25px;
+    fill: none;
+  }*/
+}
+

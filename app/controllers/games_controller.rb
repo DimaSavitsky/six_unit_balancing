@@ -15,6 +15,10 @@ class GamesController < ApplicationController
     redirect_to games_path
   end
 
+  def world
+    @game = Game.find(params[:id])
+  end
+
 
   private
 
