@@ -324,6 +324,7 @@ var voronoy_drawer =   function() {
       w = k / 180,
       F = 1e-15,
       _ = d3.geo.circle().angle(90);
+
     d3.geo.voronoi = function(n, e) {
       arguments.length < 2 && (e = d3.geo.delaunay(n)), e || (e = []);
       var r = n.length,
@@ -360,7 +361,9 @@ var voronoy_drawer =   function() {
           return u
         })
       }
-    }, d3.geo.voronoi.topology = function(t, n) {
+    };
+
+    d3.geo.voronoi.topology = function(t, n) {
       arguments.length < 2 && (n = d3.geo.delaunay(t)), n || (n = []);
       var e = t.length,
         r = new Array(e),
@@ -402,13 +405,17 @@ var voronoy_drawer =   function() {
         },
         arcs: i
       }
-    }, d3.geo.delaunay = function(t) {
+    };
+
+    d3.geo.delaunay = function(t) {
       var n = t.map(v),
         r = (t.length, d3.convexhull3d(n));
       return r.length ? (r.forEach(function(n) {
         n.coordinates = [t[n.a.p.i], t[n.b.p.i], t[n.c.p.i]], n.centre = e(n)
       }), r) : void 0
-    }, d3.convexhull3d = function(t) {
+    };
+
+    d3.convexhull3d = function(t) {
       var e = t.length;
       if (4 > e) return [];
       for (var r = 0; e > r; ++r) t[r].i = r;
@@ -459,7 +466,9 @@ var voronoy_drawer =   function() {
         }
       }
       return b
-    }, g.prototype.remove = function() {
+    };
+
+    g.prototype.remove = function() {
       this.prevF ? this.prevF.nextF = this.nextF : this.v.visible = this.nextF, this.nextF && (this.nextF.prevF = this.prevF)
     }
   };
@@ -546,9 +555,9 @@ var generate =  function() {
         v = !1
       }));
 
-    d = generate_points(300); //8000;
+    d = generate_points(2000); //8000;
 
-    //canvas.append("path").datum(d3.geo.graticule()).attr("class", "graticule").attr("d", u);
+    canvas.append("path").datum(d3.geo.graticule()).attr("class", "graticule").attr("d", u);
 
     canvas.append("path").attr("class", "delaunay");
 
